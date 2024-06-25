@@ -2,10 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from './assets/logo_transparent.png';
 import { Dialog } from '@headlessui/react';
-import {
-    Bars3Icon,
-    XMarkIcon,
-} from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const navigation = [
     { name: 'Home', href: '/' },
@@ -60,12 +57,20 @@ export default function Header({ onLoginClick, onLogoutClick, isAuthenticated, u
                             </button>
                         </>
                     ) : (
-                        <button
-                            onClick={onLoginClick}
-                            className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium"
-                        >
-                            Log in
-                        </button>
+                        <>
+                            <button
+                                onClick={onLoginClick}
+                                className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium"
+                            >
+                                Log in
+                            </button>
+                            <button
+                                onClick={onLoginClick}
+                                className="bg-gradient-to-r from-blue-400 to-green-500 hover:from-blue-500 hover:to-green-600 text-white px-4 py-2 rounded-md text-sm font-medium"
+                            >
+                                Register
+                            </button>
+                        </>
                     )}
                 </div>
                 <div className="md:hidden flex items-center">
@@ -126,12 +131,20 @@ export default function Header({ onLoginClick, onLogoutClick, isAuthenticated, u
                                         </button>
                                     </>
                                 ) : (
-                                    <button
-                                        onClick={onLoginClick}
-                                        className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium w-full"
-                                    >
-                                        Log in
-                                    </button>
+                                    <>
+                                        <button
+                                            onClick={onLoginClick}
+                                            className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium w-full"
+                                        >
+                                            Log in
+                                        </button>
+                                        <button
+                                            onClick={onLoginClick}
+                                            className="bg-gradient-to-r from-blue-400 to-green-500 hover:from-blue-500 hover:to-green-600 text-white px-4 py-2 rounded-md text-sm font-medium w-full"
+                                        >
+                                            Register
+                                        </button>
+                                    </>
                                 )}
                             </div>
                         </div>

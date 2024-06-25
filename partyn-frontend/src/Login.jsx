@@ -22,8 +22,8 @@ const Login = ({ onLoginSuccess, onShowRegister }) => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-purple-900 to-orange-700">
-            <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
+        <div className="min-h-screen flex flex-col items-center justify-center">
+            <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-md max-w-md w-full">
                 <h1 className="text-2xl font-bold mb-4 text-center text-gray-800">Login</h1>
                 {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
                 <form onSubmit={handleLogin}>
