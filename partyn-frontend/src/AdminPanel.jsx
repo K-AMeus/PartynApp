@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
+import { useAuth } from './AuthProvider';
 
 const AdminPanel = () => {
     const [name, setName] = useState('');
@@ -12,6 +13,11 @@ const AdminPanel = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const navigate = useNavigate();
+    const { user } = useAuth();
+
+    if (!user) {
+        return <Navigate to="/" />;  // Redirect to home page if not authenticated
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();

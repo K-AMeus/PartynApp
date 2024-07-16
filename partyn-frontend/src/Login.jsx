@@ -1,73 +1,69 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useAuth } from './AuthProvider';
+import { useNavigate } from 'react-router-dom';
+import logo from './assets/logo_transparent.png';
 
-const Login = ({ onLoginSuccess, onShowRegister }) => {
-    const [username, setUsername] = useState('');
+const Login = () => {
+    const { login, loginWithGoogle } = useAuth();
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/auth/login', {
-                username,
-                password
-            });
-            const { jwt, user } = response.data;
-            onLoginSuccess(jwt, user);
-            setError('');
-        } catch (error) {
-            setError('Invalid username or password');
+            await login(email, password);
+            navigate('/');
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
+    const handleGoogleSignIn = async () => {
+        try {
+            await loginWithGoogle();
+            navigate('/');
+        } catch (err) {
+            setError(err.message);
         }
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center">
-            <div className="bg-white bg-opacity-90 p-8 rounded-lg shadow-md max-w-md w-full">
-                <h1 className="text-2xl font-bold mb-4 text-center text-gray-800">Login</h1>
-                {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
-                <form onSubmit={handleLogin}>
-                    <div className="mb-4">
-                        <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
-                        <input
-                            type="text"
-                            id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            required
-                        />
-                    </div>
-                    <div className="mb-6">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            required
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        className="w-full bg-indigo-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Log In
-                    </button>
-                </form>
-                <div className="mt-4 text-center">
-                    <p className="text-sm text-gray-600">
-                        Don't have an account?{' '}
-                        <button
-                            onClick={onShowRegister}
-                            className="text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition duration-150 ease-in-out"
-                        >
-                            Register
-                        </button>
-                    </p>
+        <div className="relative min-h-screen bg-gradient-to-r from-purple-950 to-orange-700 py-6 flex flex-col justify-center items-center sm:py-12">
+            <img src={logo} alt="Logo" className="h-48 mb-8" />
+            {error && <p className="text-red-500">{error}</p>}
+            <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
+                <div>
+                    <label htmlFor="email" className="block text-sm font-bold text-white">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
                 </div>
-            </div>
+                <div>
+                    <label htmlFor="password" className="block text-sm font-bold text-white">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                </div>
+                <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition duration-200">Log In</button>
+            </form>
+            <button
+                onClick={handleGoogleSignIn}
+                className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition duration-200"
+            >
+                Sign in with Google
+            </button>
         </div>
     );
 };

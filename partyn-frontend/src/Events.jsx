@@ -135,12 +135,12 @@ const Events = () => {
                                         </div>
                                     </div>
                                     {/* Event image */}
-                                    <div className="flex-shrink-0 w-1/3 relative -ml-12">
+{/*                                    <div className="flex-shrink-0 w-1/3 relative -ml-12">
                                         <img src={event.imageUrl} alt={event.name}
                                              className="w-full h-full object-cover rounded-l-lg"/>
                                         <div
                                             className="absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
-                                    </div>
+                                    </div>*/}
                                     <div className="ml-8 flex-1">
                                         {/* Event name */}
                                         <h2 className="text-2xl font-bold text-white uppercase">{event.name}</h2>
