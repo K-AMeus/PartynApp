@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from './AuthProvider';
 import { useNavigate, useLocation } from 'react-router-dom';
 import logo from './assets/logo_transparent.png';
-import googleLogo from './assets/google_logo.png'; // Ensure you have a Google logo image in the assets folder
+import googleLogo from './assets/google_logo.png';
 
 const AuthForm = () => {
     const { login, signup, loginWithGoogle } = useAuth();

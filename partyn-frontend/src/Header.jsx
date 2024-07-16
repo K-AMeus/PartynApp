@@ -28,6 +28,10 @@ export default function Header() {
         navigate('/signup');
     };
 
+    const handleProfile = () => {
+        navigate('/profile');
+    };
+
     return (
         <header className="bg-gradient-to-r from-purple-900 to-orange-800 fixed top-0 left-0 right-0 z-50 backdrop-blur-md">
             <nav className="mx-auto max-w-7xl px-6 lg:px-8 flex items-center justify-between h-16 relative">
@@ -51,6 +55,16 @@ export default function Header() {
                     {user ? (
                         <>
                             <span className="text-white">{user.displayName}</span>
+                            <button
+                                onClick={handleProfile}
+                                className="flex items-center justify-center p-2 focus:outline-none"
+                            >
+                                <img
+                                    src={user.photoURL || 'https://via.placeholder.com/40'} // Placeholder if no photo
+                                    alt="Profile"
+                                    className="h-8 w-8 rounded-full"
+                                />
+                            </button>
                             <button
                                 onClick={logout}
                                 className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
@@ -117,6 +131,16 @@ export default function Header() {
                                 {user ? (
                                     <>
                                         <span className="text-white">{user.displayName}</span>
+                                        <button
+                                            onClick={handleProfile}
+                                            className="flex items-center justify-center p-2 focus:outline-none"
+                                        >
+                                            <img
+                                                src={user.photoURL || 'https://via.placeholder.com/40'} // Placeholder if no photo
+                                                alt="Profile"
+                                                className="h-8 w-8 rounded-full"
+                                            />
+                                        </button>
                                         <button
                                             onClick={logout}
                                             className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white px-4 py-2 rounded-md text-sm font-medium w-full"

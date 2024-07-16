@@ -7,6 +7,7 @@ import AdminPanel from './AdminPanel';
 import Header from './Header';
 import Footer from './Footer';
 import AuthForm from './AuthForm';
+import Profile from './Profile';
 import './App.css';
 
 const AppContent = () => {
@@ -19,6 +20,7 @@ const AppContent = () => {
                 <Route path="/login" element={<AuthForm />} />
                 <Route path="/signup" element={<AuthForm />} />
                 <Route path="/admin" element={<AdminPanel />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
             <Footer />
