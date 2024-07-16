@@ -1,26 +1,43 @@
 import React from 'react';
 import { useAuth } from './AuthProvider';
 
+function getColorFromString(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const color = Math.abs(hash % 360);
+    return `hsl(${color}, 70%, 50%)`;
+}
+
+function getInitials(email) {
+    return email ? email.charAt(0).toUpperCase() : '';
+}
+
 const Profile = () => {
     const { user } = useAuth();
 
-    if (!user) {
-        return <p className="text-center text-white">Loading...</p>;
-    }
-
     return (
-        <div className="min-h-screen bg-gradient-to-r from-purple-950 to-orange-700 flex flex-col items-center justify-center">
-            <div className="bg-gray-950 bg-opacity-80 p-8 rounded-2xl shadow-lg text-white max-w-md w-full">
-                <h2 className="text-3xl font-bold mb-4 text-center">Profile</h2>
-                <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-950 to-orange-700 text-white">
+            <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
+                {user.photoURL ? (
                     <img
-                        src={user.photoURL || 'https://via.placeholder.com/150'}
+                        src={user.photoURL}
                         alt="Profile"
-                        className="h-32 w-32 rounded-full mb-4"
+                        className="h-24 w-24 rounded-full mb-4"
                     />
-                    <p className="text-xl font-semibold">{user.displayName || 'No display name'}</p>
-                    <p className="text-lg">{user.email}</p>
-                </div>
+                ) : (
+                    <div
+                        className="h-24 w-24 rounded-full flex items-center justify-center text-white text-3xl mb-4"
+                        style={{
+                            backgroundColor: getColorFromString(user.email)
+                        }}
+                    >
+                        {getInitials(user.email)}
+                    </div>
+                )}
+                <h2 className="text-2xl font-semibold">{user.displayName || user.email}</h2>
+                <p className="text-gray-400">{user.email}</p>
             </div>
         </div>
     );

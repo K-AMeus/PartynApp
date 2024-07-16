@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
+import { Navigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 
 const AdminPanel = () => {
     const [name, setName] = useState('');
@@ -12,11 +14,34 @@ const AdminPanel = () => {
     const [topPick, setTopPick] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(null);
     const navigate = useNavigate();
     const { user } = useAuth();
+    const auth = getAuth();
+
+    useEffect(() => {
+        const checkAdmin = async () => {
+            if (user) {
+                const idTokenResult = await auth.currentUser.getIdTokenResult();
+                setIsAdmin(!!idTokenResult.claims.admin);
+            } else {
+                setIsAdmin(false);
+            }
+        };
+        checkAdmin();
+    }, [user, auth]);
+
+    if (isAdmin === null) {
+        // Loading state while checking admin status
+        return <div>Loading...</div>;
+    }
 
     if (!user) {
         return <Navigate to="/" />;  // Redirect to home page if not authenticated
+    }
+
+    if (!isAdmin) {
+        return <Navigate to="/" />;  // Redirect to home page if not an admin
     }
 
     const handleSubmit = async (e) => {

@@ -15,9 +15,22 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
+function getColorFromString(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const color = Math.abs(hash % 360);
+    return `hsl(${color}, 70%, 50%)`;
+}
+
+function getInitials(email) {
+    return email ? email.charAt(0).toUpperCase() : '';
+}
+
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const { user, logout } = useAuth();
+    const { user, isAdmin, logout } = useAuth();
     const navigate = useNavigate();
 
     const handleLogin = () => {
@@ -30,6 +43,11 @@ export default function Header() {
 
     const handleProfile = () => {
         navigate('/profile');
+    };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
     };
 
     return (
@@ -50,23 +68,41 @@ export default function Header() {
                             {item.name}
                         </Link>
                     ))}
+                    {isAdmin && (
+                        <Link
+                            to="/admin"
+                            className="text-white bg-red-600 hover:bg-red-700 px-3 py-2 rounded-md text-sm font-medium"
+                        >
+                            Admin Panel
+                        </Link>
+                    )}
                 </div>
                 <div className="hidden md:flex md:items-center space-x-4">
                     {user ? (
                         <>
-                            <span className="text-white">{user.displayName}</span>
                             <button
                                 onClick={handleProfile}
-                                className="flex items-center justify-center p-2 focus:outline-none"
+                                className="relative flex items-center justify-center p-2 focus:outline-none"
                             >
-                                <img
-                                    src={user.photoURL || 'https://via.placeholder.com/40'} // Placeholder if no photo
-                                    alt="Profile"
-                                    className="h-8 w-8 rounded-full"
-                                />
+                                {user.photoURL ? (
+                                    <img
+                                        src={user.photoURL}
+                                        alt="Profile"
+                                        className="h-8 w-8 rounded-full"
+                                    />
+                                ) : (
+                                    <div
+                                        className="h-8 w-8 rounded-full flex items-center justify-center text-white"
+                                        style={{
+                                            backgroundColor: getColorFromString(user.email)
+                                        }}
+                                    >
+                                        {getInitials(user.email)}
+                                    </div>
+                                )}
                             </button>
                             <button
-                                onClick={logout}
+                                onClick={handleLogout}
                                 className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
                             >
                                 Log out
@@ -125,24 +161,42 @@ export default function Header() {
                                     {item.name}
                                 </Link>
                             ))}
+                            {isAdmin && (
+                                <Link
+                                    to="/admin"
+                                    className="block px-3 py-2 rounded-md text-base font-medium text-white bg-red-600 hover:bg-red-700"
+                                >
+                                    Admin Panel
+                                </Link>
+                            )}
                         </div>
                         <div className="border-t border-gray-700 mt-6 pt-4 pb-3">
                             <div className="flex items-center px-5">
                                 {user ? (
                                     <>
-                                        <span className="text-white">{user.displayName}</span>
                                         <button
                                             onClick={handleProfile}
-                                            className="flex items-center justify-center p-2 focus:outline-none"
+                                            className="relative flex items-center justify-center p-2 focus:outline-none"
                                         >
-                                            <img
-                                                src={user.photoURL || 'https://via.placeholder.com/40'} // Placeholder if no photo
-                                                alt="Profile"
-                                                className="h-8 w-8 rounded-full"
-                                            />
+                                            {user.photoURL ? (
+                                                <img
+                                                    src={user.photoURL}
+                                                    alt="Profile"
+                                                    className="h-8 w-8 rounded-full"
+                                                />
+                                            ) : (
+                                                <div
+                                                    className="h-8 w-8 rounded-full flex items-center justify-center text-white"
+                                                    style={{
+                                                        backgroundColor: getColorFromString(user.email)
+                                                    }}
+                                                >
+                                                    {getInitials(user.email)}
+                                                </div>
+                                            )}
                                         </button>
                                         <button
-                                            onClick={logout}
+                                            onClick={handleLogout}
                                             className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white px-4 py-2 rounded-md text-sm font-medium w-full"
                                         >
                                             Log out
