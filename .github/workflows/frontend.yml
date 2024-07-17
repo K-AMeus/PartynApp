@@ -1,0 +1,30 @@
+name: Build and Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./Partyn-frontend
+      - name: Build
+        run: npm run build
+        working-directory: ./Partyn-frontend
+      - name: Deploy to Railway
+        uses: railwayapp/railway-action@master
+        with:
+          project_id: ${{ secrets.RAILWAY_PROJECT_ID }}
+          environment_id: ${{ secrets.RAILWAY_ENVIRONMENT_ID }}
+          service_id: ${{ secrets.RAILWAY_FRONTEND_SERVICE_ID }}
+          token: ${{ secrets.RAILWAY_TOKEN }}
