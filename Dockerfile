@@ -2,10 +2,8 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY . /app
-
-RUN ./mvnw package
-
-CMD ["java", "-jar", "target/your-spring-boot-app.jar"]
+COPY build/libs/Partyn-app-1.0.0.jar /app/Partyn-app-1.0.0.jar
 
 EXPOSE 8080
+
+CMD ["java", "-jar", "/app/Partyn-app-1.0.0.jar"]
