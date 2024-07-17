@@ -112,11 +112,11 @@ const Events = () => {
                     ) : (
                         events.map((event, index) => (
                             <div key={event.id}
-                                 className="relative bg-gray-900 shadow-md rounded-2xl overflow-hidden transform hover:-translate-y-2 transition-all duration-300 p-12 group"
-                                 style={{paddingTop: '4rem'}}>
+                                 className="relative bg-gray-900 shadow-md rounded-2xl overflow-hidden transform hover:-translate-y-2 transition-all duration-300"
+                                 style={{ height: '270px' }}>
                                 {/* Location information */}
                                 <div className="absolute top-2 right-0 flex items-center text-white z-10"
-                                     style={{transform: 'translateY(20%) translateX(-20%)', marginLeft: '1rem'}}>
+                                     style={{ transform: 'translateY(20%) translateX(-20%)', marginLeft: '1rem' }}>
                                     <svg className="h-8 w-8 text-red-500" viewBox="0 0 24 24" fill="none"
                                          stroke="currentColor" strokeWidth="2" strokeLinecap="round"
                                          strokeLinejoin="round">
@@ -125,36 +125,37 @@ const Events = () => {
                                     </svg>
                                     <p className="ml-1">{event.location}</p>
                                 </div>
-                                <div className="flex">
+                                <div className="flex h-full">
                                     {/* Date information */}
                                     <div
-                                        className="flex-shrink-0 w-20 h-20 rounded-full bg-gray-700 flex items-center justify-center text-white text-lg font-bold absolute top-4 left-4">
+                                        className="flex-shrink-0 w-20 h-20 rounded-full bg-gray-700 flex items-center justify-center text-white text-lg font-bold absolute top-4 left-4 z-20">
                                         <div className="text-center">
                                             <p>{new Date(event.dateTime).getDate()}</p>
                                             <p>{new Date(event.dateTime).toLocaleString('default', {month: 'short'})}</p>
                                         </div>
                                     </div>
                                     {/* Event image */}
-{/*                                    <div className="flex-shrink-0 w-1/3 relative -ml-12">
-                                        <img src={event.imageUrl} alt={event.name}
-                                             className="w-full h-full object-cover rounded-l-lg"/>
+                                    <div className="flex-shrink-0 w-1/3 relative">
+                                        <img src={`http://localhost:8080${event.imageUrl}`} alt={event.name}
+                                             className="w-full h-full object-cover" />
                                         <div
-                                            className="absolute inset-0 bg-gradient-to-r from-black to-transparent"></div>
-                                    </div>*/}
-                                    <div className="ml-8 flex-1">
+                                            className="absolute inset-0 bg-gradient-to-r from-gray-900 via-transparent to-gray-900 opacity-100"></div>
+                                    </div>
+                                    <div className="ml-8 flex-1 p-4 flex flex-col justify-between">
                                         {/* Event name */}
-                                        <h2 className="text-2xl font-bold text-white uppercase">{event.name}</h2>
-                                        <div className="h-4"></div>
-                                        {/* Event time */}
-                                        <p className="text-lg text-gray-400">{new Date(event.dateTime).toLocaleTimeString([], {
-                                            hour: '2-digit',
-                                            minute: '2-digit',
-                                            hour12: false
-                                        })}</p>
-                                        <div className="flex items-center mt-4 space-x-4">
+                                        <div className="mt-12"> {/* Adjusted margin here */}
+                                            <h2 className="text-2xl font-bold text-white uppercase">{event.name}</h2>
+                                            <div className="h-4"></div>
+                                            {/* Event time */}
+                                            <p className="text-lg text-gray-400">{new Date(event.dateTime).toLocaleTimeString([], {
+                                                hour: '2-digit',
+                                                minute: '2-digit',
+                                                hour12: false
+                                            })}</p>
+                                        </div>
+                                        <div className="flex items-center justify-between mt-4 space-x-4">
                                             {/* Interested count */}
-                                            <div
-                                                className="flex items-center absolute bottom-4 left-100 text-white space-x-4">
+                                            <div className="flex items-center text-white space-x-4">
                                                 <svg className="h-8 w-8 text-red-500" width="24" height="24"
                                                      viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor"
                                                      fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -166,25 +167,25 @@ const Events = () => {
                                                 </svg>
                                                 <p>{event.interested}</p>
                                             </div>
+                                            <div className="flex items-center text-white space-x-4">
+                                                {/* Facebook link */}
+                                                <a href={event.facebookLink} target="_blank" rel="noopener noreferrer"
+                                                   className="text-blue-500 hover:underline">
+                                                    <svg className="h-8 w-8 text-blue-500" viewBox="0 0 24 24" fill="none"
+                                                         stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                                         strokeLinejoin="round">
+                                                        <path
+                                                            d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                                                    </svg>
+                                                </a>
+                                                <svg className="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24"
+                                                     stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                                          d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
+                                                </svg>
+                                                {event.ticketPrice > 0 ? <p>{event.ticketPrice} €</p> : <p>FREE</p>}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="flex items-center absolute bottom-4 right-4 text-white space-x-4">
-                                        {/* Facebook link */}
-                                        <a href={event.facebookLink} target="_blank" rel="noopener noreferrer"
-                                           className="text-blue-500 hover:underline">
-                                            <svg className="h-8 w-8 text-blue-500" viewBox="0 0 24 24" fill="none"
-                                                 stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-                                                 strokeLinejoin="round">
-                                                <path
-                                                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                                            </svg>
-                                        </a>
-                                        <svg className="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24"
-                                             stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                                  d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
-                                        </svg>
-                                        {event.ticketPrice > 0 ? <p>{event.ticketPrice} €</p> : <p>FREE</p>}
                                     </div>
                                 </div>
                                 {/* Hover arrow */}
@@ -196,7 +197,6 @@ const Events = () => {
                                               d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                                     </svg>
                                 </div>
-
                             </div>
                         ))
                     )}

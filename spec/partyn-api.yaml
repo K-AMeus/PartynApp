@@ -11,11 +11,9 @@ externalDocs:
   url: https://swagger.io/specification/
   description: Find more information about OAS3.0 standard.
 
-
 tags:
   - name: Event
     description: Handles core application operations related to event management
-
 
 paths:
   /events:
@@ -45,9 +43,26 @@ paths:
         description: A new event information.
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Event'
+              type: object
+              properties:
+                name:
+                  type: string
+                dateTime:
+                  type: string
+                  format: date-time
+                ticketPrice:
+                  type: integer
+                description:
+                  type: string
+                location:
+                  type: string
+                topPick:
+                  type: boolean
+                image:
+                  type: string
+                  format: binary
       responses:
         '201':
           description: Successfully submitted events return an instance with given id.
@@ -56,12 +71,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Event'
 
-
-
-
 components:
   schemas:
-
     Event:
       type: object
       required:
@@ -87,8 +98,5 @@ components:
           type: string
         topPick:
           type: boolean
-
-
-
-
-  
+        imageUrl:
+          type: string

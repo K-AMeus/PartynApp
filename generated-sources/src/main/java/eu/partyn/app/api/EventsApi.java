@@ -5,7 +5,9 @@
  */
 package eu.partyn.app.api;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import eu.partyn.app.dto.EventDto;
+import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,23 +35,35 @@ public interface EventsApi {
      * POST /events : Submits new events.
      * Submits new event
      *
-     * @param eventDto A new event information. (required)
+     * @param name  (optional)
+     * @param dateTime  (optional)
+     * @param ticketPrice  (optional)
+     * @param description  (optional)
+     * @param location  (optional)
+     * @param topPick  (optional)
+     * @param image  (optional)
      * @return Successfully submitted events return an instance with given id. (status code 201)
      */
     @RequestMapping(
         method = RequestMethod.POST,
         value = "/events",
         produces = { "application/json" },
-        consumes = { "application/json" }
+        consumes = { "multipart/form-data" }
     )
     
     default ResponseEntity<EventDto> addEvent(
-         @Valid @RequestBody EventDto eventDto
+         @Valid @RequestParam(value = "name", required = false) String name,
+         @Valid @RequestParam(value = "dateTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime,
+         @Valid @RequestParam(value = "ticketPrice", required = false) Integer ticketPrice,
+         @Valid @RequestParam(value = "description", required = false) String description,
+         @Valid @RequestParam(value = "location", required = false) String location,
+         @Valid @RequestParam(value = "topPick", required = false) Boolean topPick,
+         @RequestPart(value = "image", required = false) MultipartFile image
     ) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"dateTime\" : \"2000-01-23T04:56:07.000+00:00\", \"ticketPrice\" : 6, \"name\" : \"name\", \"description\" : \"description\", \"location\" : \"location\", \"id\" : 0, \"topPick\" : true }";
+                    String exampleString = "{ \"dateTime\" : \"2000-01-23T04:56:07.000+00:00\", \"ticketPrice\" : 6, \"imageUrl\" : \"imageUrl\", \"name\" : \"name\", \"description\" : \"description\", \"location\" : \"location\", \"id\" : 0, \"topPick\" : true }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -78,7 +92,7 @@ public interface EventsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "[ { \"dateTime\" : \"2000-01-23T04:56:07.000+00:00\", \"ticketPrice\" : 6, \"name\" : \"name\", \"description\" : \"description\", \"location\" : \"location\", \"id\" : 0, \"topPick\" : true }, { \"dateTime\" : \"2000-01-23T04:56:07.000+00:00\", \"ticketPrice\" : 6, \"name\" : \"name\", \"description\" : \"description\", \"location\" : \"location\", \"id\" : 0, \"topPick\" : true } ]";
+                    String exampleString = "[ { \"dateTime\" : \"2000-01-23T04:56:07.000+00:00\", \"ticketPrice\" : 6, \"imageUrl\" : \"imageUrl\", \"name\" : \"name\", \"description\" : \"description\", \"location\" : \"location\", \"id\" : 0, \"topPick\" : true }, { \"dateTime\" : \"2000-01-23T04:56:07.000+00:00\", \"ticketPrice\" : 6, \"imageUrl\" : \"imageUrl\", \"name\" : \"name\", \"description\" : \"description\", \"location\" : \"location\", \"id\" : 0, \"topPick\" : true } ]";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

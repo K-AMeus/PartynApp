@@ -40,6 +40,8 @@ public class EventDto {
 
   private Boolean topPick;
 
+  private String imageUrl;
+
   public EventDto() {
     super();
   }
@@ -189,6 +191,25 @@ public class EventDto {
     this.topPick = topPick;
   }
 
+  public EventDto imageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+    return this;
+  }
+
+  /**
+   * Get imageUrl
+   * @return imageUrl
+  */
+  
+  @JsonProperty("imageUrl")
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -204,12 +225,13 @@ public class EventDto {
         Objects.equals(this.ticketPrice, event.ticketPrice) &&
         Objects.equals(this.description, event.description) &&
         Objects.equals(this.location, event.location) &&
-        Objects.equals(this.topPick, event.topPick);
+        Objects.equals(this.topPick, event.topPick) &&
+        Objects.equals(this.imageUrl, event.imageUrl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, dateTime, ticketPrice, description, location, topPick);
+    return Objects.hash(id, name, dateTime, ticketPrice, description, location, topPick, imageUrl);
   }
 
   @Override
@@ -223,6 +245,7 @@ public class EventDto {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    topPick: ").append(toIndentedString(topPick)).append("\n");
+    sb.append("    imageUrl: ").append(toIndentedString(imageUrl)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -12,6 +12,7 @@ const AdminPanel = () => {
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
     const [topPick, setTopPick] = useState(false);
+    const [file, setFile] = useState(null);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const [isAdmin, setIsAdmin] = useState(null);
@@ -55,10 +56,16 @@ const AdminPanel = () => {
             topPick,
         };
 
+        const formData = new FormData();
+        formData.append('event', JSON.stringify(eventData));
+        if (file) {
+            formData.append('file', file);
+        }
+
         try {
-            const response = await axios.post('http://localhost:8080/events', eventData, {
+            const response = await axios.post('http://localhost:8080/events', formData, {
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                 },
             });
 
@@ -141,6 +148,15 @@ const AdminPanel = () => {
                             className="mr-2 h-5 w-5 text-blue-600 focus:ring-blue-500 rounded"
                         />
                         <label className="block text-sm font-bold" htmlFor="topPick">Top Pick</label>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-2" htmlFor="file">Upload Image</label>
+                        <input
+                            type="file"
+                            id="file"
+                            onChange={(e) => setFile(e.target.files[0])}
+                            className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        />
                     </div>
                     <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition duration-200">Submit</button>
                 </form>
