@@ -51,19 +51,19 @@ export default function Header() {
     };
 
     return (
-        <header className="bg-gradient-to-r from-purple-900 to-orange-800 fixed top-0 left-0 right-0 z-50 backdrop-blur-md">
+        <header className="bg-black bg-opacity-70 fixed top-0 left-0 right-0 z-50 shadow-lg font-courier-new">
             <nav className="mx-auto max-w-7xl px-6 lg:px-8 flex items-center justify-between h-16 relative">
                 <div className="flex items-center">
                     <Link to="/" className="flex-shrink-0">
-                        <img className="h-36 w-auto -mb-0" src={logo} alt="Logo" />
+                        <img className="h-20 w-auto" src={logo} alt="Logo" />
                     </Link>
                 </div>
-                <div className="hidden md:flex space-x-10">
+                <div className="hidden md:flex space-x-8">
                     {navigation.map((item) => (
                         <Link
                             key={item.name}
                             to={item.href}
-                            className="text-white hover:bg-gray-700 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium"
+                            className="text-sky-300 hover:text-sky-500 hover:underline transition-colors duration-200 px-3 py-2 rounded-md text-lg font-medium"
                         >
                             {item.name}
                         </Link>
@@ -71,7 +71,7 @@ export default function Header() {
                     {isAdmin && (
                         <Link
                             to="/admin"
-                            className="text-white bg-red-600 hover:bg-red-700 px-3 py-2 rounded-md text-sm font-medium"
+                            className="text-red-500 bg-red-900 hover:bg-red-800 px-3 py-2 rounded-md text-lg font-medium transition-colors duration-200"
                         >
                             Admin Panel
                         </Link>
@@ -103,7 +103,7 @@ export default function Header() {
                             </button>
                             <button
                                 onClick={handleLogout}
-                                className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                                className="text-sky-200 border-2 rounded-lg border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200"
                             >
                                 Log out
                             </button>
@@ -112,13 +112,13 @@ export default function Header() {
                         <>
                             <button
                                 onClick={handleLogin}
-                                className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium"
+                                className="text-sky-200 border-2 rounded-lg border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200"
                             >
                                 Log In
                             </button>
                             <button
                                 onClick={handleSignUp}
-                                className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                                className="text-sky-200 border-2 rounded-lg border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200"
                             >
                                 Sign Up
                             </button>
@@ -138,10 +138,10 @@ export default function Header() {
 
             <Dialog as="div" className="md:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
                 <div className="fixed inset-0 z-40">
-                    <Dialog.Panel className="fixed inset-y-0 right-0 z-40 w-full bg-gradient-to-r from-purple-950 via-pink-700 to-orange-700 backdrop-blur-md overflow-y-auto">
+                    <Dialog.Panel className="fixed inset-y-0 right-0 z-40 w-full bg-black bg-opacity-80 backdrop-blur-md overflow-y-auto">
                         <div className="flex items-center justify-between p-5">
                             <Link to="/" className="flex-shrink-0">
-                                <img className="h-16 w-auto -mb-8" src={logo} alt="Logo" />
+                                <img className="h-20 w-auto" src={logo} alt="Logo" />
                             </Link>
                             <button
                                 type="button"
@@ -156,7 +156,7 @@ export default function Header() {
                                 <Link
                                     key={item.name}
                                     to={item.href}
-                                    className="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 hover:bg-opacity-75"
+                                    className="block px-3 py-2 rounded-md text-lg font-medium text-sky-300 hover:text-sky-500 hover:underline transition-colors duration-200"
                                 >
                                     {item.name}
                                 </Link>
@@ -164,7 +164,7 @@ export default function Header() {
                             {isAdmin && (
                                 <Link
                                     to="/admin"
-                                    className="block px-3 py-2 rounded-md text-base font-medium text-white bg-red-600 hover:bg-red-700"
+                                    className="block px-3 py-2 rounded-md text-lg font-medium text-red-500 bg-red-900 hover:bg-red-800 transition-colors duration-200"
                                 >
                                     Admin Panel
                                 </Link>
@@ -197,7 +197,7 @@ export default function Header() {
                                         </button>
                                         <button
                                             onClick={handleLogout}
-                                            className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white px-4 py-2 rounded-md text-sm font-medium w-full"
+                                            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-lg font-medium w-full transition-colors duration-200"
                                         >
                                             Log out
                                         </button>
@@ -206,13 +206,13 @@ export default function Header() {
                                     <>
                                         <button
                                             onClick={handleLogin}
-                                            className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium w-full"
+                                            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-lg font-medium w-full transition-colors duration-200"
                                         >
                                             Log In
                                         </button>
                                         <button
                                             onClick={handleSignUp}
-                                            className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white px-4 py-2 rounded-md text-sm font-medium w-full"
+                                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-lg font-medium w-full transition-colors duration-200"
                                         >
                                             Sign Up
                                         </button>

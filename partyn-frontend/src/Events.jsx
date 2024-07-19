@@ -3,6 +3,7 @@ import axios from 'axios';
 import location1 from './assets/location1.jpg';
 import location2 from './assets/location2.jpg';
 import location3 from './assets/location3.jpg';
+import './index.css';
 
 // Top pick locations with static images
 const topPickLocations = [
@@ -77,13 +78,13 @@ const Events = () => {
     };
 
     return (
-        <div className="relative min-h-screen bg-gradient-to-r from-purple-950 to-orange-700 py-6 flex flex-col justify-center sm:py-12">
+        <div className="relative py-6 flex flex-col justify-center sm:py-12 z-10">
             {/* Render top pick containers */}
             {isWideScreen && positions.map((position, index) => (
                 position !== 'none' && (
                     <div
                         key={topPickLocations[index % topPickLocations.length].id}
-                        className={`absolute w-48 h-48 p-4 rounded-lg shadow-lg bg-white opacity-80 transform ${position === 'left' ? 'left-8' : 'right-8'}`}
+                        className={`absolute w-48 h-48 p-4 rounded-lg neon-red transform ${position === 'left' ? 'left-8' : 'right-8'}`}
                         style={getTopPickStyle(index)}
                     >
                         <img src={topPickLocations[index % topPickLocations.length].imageUrl} alt={`Top Pick ${index}`} className="w-full h-full object-cover rounded-lg" />
@@ -93,7 +94,7 @@ const Events = () => {
 
             <div className="relative py-3 sm:max-w-4xl w-full sm:mx-auto px-8">
                 {/* Header with live clock */}
-                <div className="flex items-center justify-center mb-6 text-white">
+                <div className="flex items-center justify-center mb-6 text-white font-courier-new">
                     <svg className="h-8 w-8 text-red-500 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                         <circle cx="12" cy="10" r="3" />
@@ -104,16 +105,16 @@ const Events = () => {
                     </h1>
                 </div>
                 {/* Error message */}
-                {error && <p className="text-red-500 text-center">{error}</p>}
+                {error && <p className="text-red-500 text-center font-courier-new">{error}</p>}
                 {/* Events list */}
                 <div className="space-y-8">
                     {events.length === 0 && !error ? (
-                        <p className="text-center text-gray-400">No events available</p>
+                        <p className="text-center text-gray-400 font-courier-new">No events available</p>
                     ) : (
                         events.map((event, index) => (
                             <div key={event.id}
-                                 className="relative bg-gray-900 shadow-md rounded-2xl overflow-hidden transform hover:-translate-y-2 transition-all duration-300"
-                                 style={{ height: '270px' }}>
+                                 className="relative bg-zinc-950 text-sky-200 border-2 rounded-lg border-sky-200 neon-red p-4 transform hover:-translate-y-2 transition-all duration-300 font-courier-new"
+                                 style={{ height: '270px', borderRadius: '20px' }}>
                                 {/* Location information */}
                                 <div className="absolute top-2 right-0 flex items-center text-white z-10"
                                      style={{ transform: 'translateY(20%) translateX(-20%)', marginLeft: '1rem' }}>
@@ -128,7 +129,7 @@ const Events = () => {
                                 <div className="flex h-full">
                                     {/* Date information */}
                                     <div
-                                        className="flex-shrink-0 w-20 h-20 rounded-full bg-gray-700 flex items-center justify-center text-white text-lg font-bold absolute top-4 left-4 z-20">
+                                        className="flex-shrink-0 w-20 h-20 rounded-full bg-zinc-800 flex items-center justify-center text-white text-lg font-bold absolute top-4 left-4 z-20 font-courier-new">
                                         <div className="text-center">
                                             <p>{new Date(event.dateTime).getDate()}</p>
                                             <p>{new Date(event.dateTime).toLocaleString('default', {month: 'short'})}</p>
@@ -137,17 +138,17 @@ const Events = () => {
                                     {/* Event image */}
                                     <div className="flex-shrink-0 w-1/3 relative">
                                         <img src={`http://localhost:8080${event.imageUrl}`} alt={event.name}
-                                             className="w-full h-full object-cover" />
+                                             className="w-full h-full object-cover rounded-lg" />
                                         <div
-                                            className="absolute inset-0 bg-gradient-to-r from-gray-900 via-transparent to-gray-900 opacity-100"></div>
+                                            className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-transparent to-zinc-950 opacity-100 rounded-lg"></div>
                                     </div>
                                     <div className="ml-8 flex-1 p-4 flex flex-col justify-between">
                                         {/* Event name */}
                                         <div className="mt-12"> {/* Adjusted margin here */}
-                                            <h2 className="text-2xl font-bold text-white uppercase">{event.name}</h2>
+                                            <h2 className="text-2xl font-bold text-sky-200 uppercase font-courier-new">{event.name}</h2>
                                             <div className="h-4"></div>
                                             {/* Event time */}
-                                            <p className="text-lg text-gray-400">{new Date(event.dateTime).toLocaleTimeString([], {
+                                            <p className="text-lg text-gray-400 font-courier-new">{new Date(event.dateTime).toLocaleTimeString([], {
                                                 hour: '2-digit',
                                                 minute: '2-digit',
                                                 hour12: false
@@ -183,7 +184,7 @@ const Events = () => {
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                                                           d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/>
                                                 </svg>
-                                                {event.ticketPrice > 0 ? <p>{event.ticketPrice} €</p> : <p>FREE</p>}
+                                                {event.ticketPrice > 0 ? <p className="font-courier-new">€{event.ticketPrice}</p> : <p className="font-courier-new">FREE</p>}
                                             </div>
                                         </div>
                                     </div>

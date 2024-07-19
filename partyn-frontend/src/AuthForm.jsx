@@ -47,7 +47,21 @@ const AuthForm = () => {
     };
 
     return (
-        <div className="relative min-h-screen bg-gradient-to-r from-purple-950 to-orange-700 py-6 flex flex-col justify-center items-center sm:py-12">
+        <div className="relative min-h-screen flex flex-col justify-center items-center sm:py-12 z-10">
+            <div className="area">
+                <ul className="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
             <img src={logo} alt="Logo" className="h-48 mb-8" />
             {error && <p className="text-red-500">{error}</p>}
             <div className="flex space-x-4 mb-8">

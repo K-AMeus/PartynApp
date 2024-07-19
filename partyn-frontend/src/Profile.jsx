@@ -18,8 +18,22 @@ const Profile = () => {
     const { user } = useAuth();
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-purple-950 to-orange-700 text-white">
-            <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center">
+        <div className="relative min-h-screen flex flex-col justify-center items-center sm:py-12 z-10">
+            <div className="area">
+                <ul className="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <div className="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col items-center text-white">
                 {user.photoURL ? (
                     <img
                         src={user.photoURL}

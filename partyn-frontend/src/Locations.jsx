@@ -2,19 +2,34 @@ import React from 'react';
 import location1 from './assets/location1.jpg';
 import location2 from './assets/location2.jpg';
 import location3 from './assets/location3.jpg';
+import './index.css';
 
 const hardcodedLocations = [
-    { id: 1, name: 'Genialistide Klubi', description: 'A place for creative and cultural events.', imageUrl: location1 },
-    { id: 2, name: 'Naiiv', description: 'A cozy bar with live music and performances.', imageUrl: location2 },
-    { id: 3, name: 'Kivi Baar', description: 'A popular spot for drinks and socializing.', imageUrl: location3 }
+    { id: 1, name: 'Genialistide Klubi', description: 'Lorem ipsum dolor sit amet. In voluptatem omnis non voluptatem obcaecati sed temporibus omnis qui iste quam id consequuntur quibusdam et galisum incidunt. ', imageUrl: location1 },
+    { id: 2, name: 'Naiiv', description: 'Ut eligendi distinctio nam error autem sit similique quod eum cupiditate provident. ', imageUrl: location2 },
+    { id: 3, name: 'Kivi Baar', description: 'Qui totam molestias aut iste iusto ut commodi voluptas sed perferendis explicabo. Et esse quae est dicta tempore et laudantium voluptatum. ', imageUrl: location3 }
 ];
 
 const Locations = () => {
     return (
-        <div className="relative min-h-screen bg-gradient-to-r from-purple-950 to-orange-700 py-6 flex flex-col justify-center sm:py-12">
-            <div className="relative py-3 sm:max-w-4xl w-full sm:mx-auto px-8">
+        <div className="relative min-h-screen flex flex-col">
+            <div className="area">
+                <ul className="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <div className="relative py-3 sm:max-w-4xl w-full sm:mx-auto px-8 flex-grow">
                 <div className="flex items-center justify-center mb-6 text-white">
-                    <h1 className="text-3xl font-semibold">Locations</h1>
+                    <h1 className="text-3xl font-semibold font-courier-new">Locations</h1>
                 </div>
                 <div className="space-y-8">
                     {hardcodedLocations.map((location) => (
@@ -25,16 +40,16 @@ const Locations = () => {
                                 {/* Location image */}
                                 <div className="flex-shrink-0 w-1/3 relative">
                                     <img src={location.imageUrl} alt={location.name}
-                                         className="w-full h-full object-cover" />
-                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-transparent to-gray-900 opacity-100"></div>
+                                         className="w-full h-full object-cover rounded-lg" />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-transparent to-gray-900 opacity-100 rounded-lg"></div>
                                 </div>
                                 <div className="ml-8 flex-1 p-4 flex flex-col justify-between">
                                     {/* Location name */}
                                     <div className="mt-12"> {/* Adjusted margin here */}
-                                        <h2 className="text-2xl font-bold text-white uppercase">{location.name}</h2>
+                                        <h2 className="text-2xl font-bold text-white uppercase font-courier-new">{location.name}</h2>
                                         <div className="h-4"></div>
                                         {/* Location description */}
-                                        <p className="text-lg text-gray-400">{location.description}</p>
+                                        <p className="text-lg text-gray-400 font-courier-new">{location.description}</p>
                                     </div>
                                 </div>
                             </div>
