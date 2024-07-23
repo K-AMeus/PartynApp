@@ -1,0 +1,20 @@
+FROM openjdk:21-jdk-slim
+
+WORKDIR /app
+
+COPY build.gradle settings.gradle /app/
+COPY gradlew /app/
+COPY gradle /app/gradle
+
+COPY src /app/src
+COPY spec /app/spec
+
+RUN chmod +x gradlew
+
+RUN ./gradlew clean build
+
+COPY build/libs/*.jar /app/app.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "/app/app.jar"]

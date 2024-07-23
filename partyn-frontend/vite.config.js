@@ -6,5 +6,8 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     include: ['auth0-lock']
+  },
+  server: {
+    port: 5173,
   }
 });
