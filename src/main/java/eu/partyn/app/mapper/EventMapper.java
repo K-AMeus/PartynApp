@@ -9,9 +9,6 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 
-/**
- * MapStruct mapper for converting between Event entity and EventDto objects.
- */
 @Mapper(componentModel = "Spring")
 public interface EventMapper {
     EventMapper INSTANCE = Mappers.getMapper(EventMapper.class);

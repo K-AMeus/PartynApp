@@ -15,9 +15,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 
-/**
- * Entity representing an event.
- */
+
 @Entity
 @Data
 @Builder
@@ -35,6 +33,9 @@ public class Event {
     @NotNull(message = "Date and time cannot be null")
     private LocalDateTime dateTime;
 
+    @NotNull(message = "End date and time cannot be null")
+    private LocalDateTime endDateTime;
+
     @NotNull(message = "Ticket price cannot be null")
     @Min(0)
     private Integer ticketPrice;
@@ -49,5 +50,7 @@ public class Event {
     private Boolean topPick;
 
     private String imageUrl;
+
+    private Integer likes = 0;
 
 }
