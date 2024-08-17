@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from './AuthProvider';
+import { useAuth } from '../context/AuthProvider';
 
 function getColorFromString(str) {
     let hash = 0;

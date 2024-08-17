@@ -4,7 +4,7 @@ info:
   description: The Partyn API provides a comprehensive interface for managing and accessing event data.
   version: 1.0.0
 servers:
-  - url: 'http://localhost:8080'
+  - url: 'https://partynbackend-production.up.railway.app'
     description: Local development server
 
 externalDocs:
@@ -52,6 +52,9 @@ paths:
                 dateTime:
                   type: string
                   format: date-time
+                endDateTime:
+                  type: string
+                  format: date-time
                 ticketPrice:
                   type: integer
                 description:
@@ -78,6 +81,7 @@ components:
       required:
         - name
         - dateTime
+        - endDateTime
         - ticketPrice
         - description
         - location
@@ -88,6 +92,9 @@ components:
         name:
           type: string
         dateTime:
+          type: string
+          format: date-time
+        endDateTime:
           type: string
           format: date-time
         ticketPrice:

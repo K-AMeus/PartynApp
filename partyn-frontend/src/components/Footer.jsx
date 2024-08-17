@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer className="bg-black text-white font-courier-new py-8">
+        <footer className="bg-black bg-opacity-75 text-white font-courier-new py-8">
             <div className="container mx-auto px-6 flex flex-col items-center space-y-8">
                 <div className="flex justify-center space-x-6">
                     <a className="text-sky-300 hover:text-white transition-colors duration-200" href="#!">

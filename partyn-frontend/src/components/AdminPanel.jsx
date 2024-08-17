@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthProvider';
+import { useAuth } from '../context/AuthProvider';
 import { Navigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 
 const AdminPanel = () => {
     const [name, setName] = useState('');
     const [dateTime, setDateTime] = useState('');
+    const [endDateTime, setEndDateTime] = useState('');
     const [ticketPrice, setTicketPrice] = useState('');
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
@@ -33,23 +34,27 @@ const AdminPanel = () => {
     }, [user, auth]);
 
     if (isAdmin === null) {
-        // Loading state while checking admin status
         return <div>Loading...</div>;
     }
 
     if (!user) {
-        return <Navigate to="/" />;  // Redirect to home page if not authenticated
+        return <Navigate to="/" />;
     }
 
     if (!isAdmin) {
-        return <Navigate to="/" />;  // Redirect to home page if not an admin
+        return <Navigate to="/" />;
     }
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const eventData = {
             name,
             dateTime,
+            endDateTime,
             ticketPrice: parseInt(ticketPrice),
             description,
             location,
@@ -58,14 +63,14 @@ const AdminPanel = () => {
 
         const formData = new FormData();
         formData.append('event', JSON.stringify(eventData));
-        if (file) {
-            formData.append('file', file);
-        }
+        formData.append('file', file);
 
         try {
+            const idToken = await auth.currentUser.getIdToken(true);
             const response = await axios.post('http://localhost:8080/events', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${idToken}`,
                 },
             });
 
@@ -97,12 +102,23 @@ const AdminPanel = () => {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-bold mb-2" htmlFor="dateTime">Date and Time</label>
+                        <label className="block text-sm font-bold mb-2" htmlFor="dateTime">Start Date and Time</label>
                         <input
                             type="datetime-local"
                             id="dateTime"
                             value={dateTime}
                             onChange={(e) => setDateTime(e.target.value)}
+                            className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-bold mb-2" htmlFor="endDateTime">End Date and Time</label> {/* New input field */}
+                        <input
+                            type="datetime-local"
+                            id="endDateTime"
+                            value={endDateTime}
+                            onChange={(e) => setEndDateTime(e.target.value)}
                             className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
                             required
                         />
@@ -154,7 +170,7 @@ const AdminPanel = () => {
                         <input
                             type="file"
                             id="file"
-                            onChange={(e) => setFile(e.target.files[0])}
+                            onChange={handleFileChange}
                             className="w-full p-3 bg-gray-800 rounded-lg focus:ring-2 focus:ring-blue-500"
                         />
                     </div>

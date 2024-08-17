@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthProvider';
+import { useAuth } from '../context/AuthProvider';
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import logo from './assets/logo_transparent.png';
+import NavigationButton from './NavigationButton';
 
 const navigation = [
     { name: 'Events', href: '/' },
     { name: 'Locations', href: '/locations' },
-    { name: 'Contact', href: '#' },
+    { name: 'Contact', href: '/contact' },
 ];
 
 function classNames(...classes) {
@@ -34,11 +35,11 @@ export default function Header() {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        navigate('/login');
+        navigate('/auth?mode=login');
     };
 
     const handleSignUp = () => {
-        navigate('/signup');
+        navigate('/auth?mode=signup');
     };
 
     const handleProfile = () => {
@@ -51,19 +52,19 @@ export default function Header() {
     };
 
     return (
-        <header className="bg-black bg-opacity-70 fixed top-0 left-0 right-0 z-50 shadow-lg font-courier-new">
-            <nav className="mx-auto max-w-7xl px-6 lg:px-8 flex items-center justify-between h-16 relative">
-                <div className="flex items-center">
+        <header className="bg-black bg-opacity-75 fixed top-0 left-20 right-0 z-50 shadow-lg font-courier-new">
+            <nav className="mx-auto max-w-7xl px-6 lg:px-8 flex items-center justify-between h-20 relative">
+                <div className="flex items-center" style={{ marginLeft: '-70px' }}>
                     <Link to="/" className="flex-shrink-0">
-                        <img className="h-20 w-auto" src={logo} alt="Logo" />
+                        <img className="h-40 w-auto" src={logo} alt="Logo" />
                     </Link>
                 </div>
-                <div className="hidden md:flex space-x-8">
+                <div className="hidden md:flex space-x-8 ml-20">
                     {navigation.map((item) => (
                         <Link
                             key={item.name}
                             to={item.href}
-                            className="text-sky-300 hover:text-sky-500 hover:underline transition-colors duration-200 px-3 py-2 rounded-md text-lg font-medium"
+                            className="text-white hover:text-sky-500 hover:underline transition-colors duration-200 px-3 py-2 rounded-md text-lg font-medium"
                         >
                             {item.name}
                         </Link>
@@ -77,7 +78,7 @@ export default function Header() {
                         </Link>
                     )}
                 </div>
-                <div className="hidden md:flex md:items-center space-x-4">
+                <div className="hidden md:flex md:items-center">
                     {user ? (
                         <>
                             <button
@@ -94,37 +95,23 @@ export default function Header() {
                                     <div
                                         className="h-8 w-8 rounded-full flex items-center justify-center text-white"
                                         style={{
-                                            backgroundColor: getColorFromString(user.email)
+                                            backgroundColor: getColorFromString(user.email),
                                         }}
                                     >
                                         {getInitials(user.email)}
                                     </div>
                                 )}
                             </button>
-                            <button
-                                onClick={handleLogout}
-                                className="text-sky-200 border-2 rounded-lg border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200"
-                            >
-                                Log out
-                            </button>
+                            <NavigationButton text="Log Out" onClick={handleLogout} /> {/* Use NavigationButton */}
                         </>
                     ) : (
-                        <>
-                            <button
-                                onClick={handleLogin}
-                                className="text-sky-200 border-2 rounded-lg border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200"
-                            >
-                                Log In
-                            </button>
-                            <button
-                                onClick={handleSignUp}
-                                className="text-sky-200 border-2 rounded-lg border-sky-200 shadow-[0_0_2px_#fff,inset_0_0_2px_#fff,0_0_5px_#08f,0_0_15px_#08f,0_0_30px_#08f] px-4 py-2 rounded-md text-lg font-medium transition-colors duration-200"
-                            >
-                                Sign Up
-                            </button>
-                        </>
+                        <div className="flex items-center">
+                            <NavigationButton text="Log In" onClick={handleLogin} /> {/* Use NavigationButton */}
+                            <NavigationButton text="Sign Up" onClick={handleSignUp} /> {/* Use NavigationButton */}
+                        </div>
                     )}
                 </div>
+
                 <div className="md:hidden flex items-center">
                     <button
                         type="button"
@@ -188,7 +175,7 @@ export default function Header() {
                                                 <div
                                                     className="h-8 w-8 rounded-full flex items-center justify-center text-white"
                                                     style={{
-                                                        backgroundColor: getColorFromString(user.email)
+                                                        backgroundColor: getColorFromString(user.email),
                                                     }}
                                                 >
                                                     {getInitials(user.email)}
@@ -204,18 +191,8 @@ export default function Header() {
                                     </>
                                 ) : (
                                     <>
-                                        <button
-                                            onClick={handleLogin}
-                                            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-lg font-medium w-full transition-colors duration-200"
-                                        >
-                                            Log In
-                                        </button>
-                                        <button
-                                            onClick={handleSignUp}
-                                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-lg font-medium w-full transition-colors duration-200"
-                                        >
-                                            Sign Up
-                                        </button>
+                                        <NavigationButton text="Log In" onClick={handleLogin} />
+                                        <NavigationButton text="Sign Up" onClick={handleSignUp} />
                                     </>
                                 )}
                             </div>

@@ -1,19 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './AuthProvider';
-import Events from './Events';
-import Locations from './Locations';
-import AdminPanel from './AdminPanel';
-import Header from './Header';
-import Footer from './Footer';
-import AuthForm from './AuthForm';
-import Profile from './Profile';
-import './App.css';
-import './index.css';
+import { AuthProvider, useAuth } from './context/AuthProvider.jsx';
+import Events from './components/Events.jsx';
+import Locations from '/components/Locations.jsx';
+import AdminPanel from './components/AdminPanel.jsx';
+import Header from './components/Header.jsx';
+import Footer from './components/Footer';
+import AuthSlider from './components/AuthSlider.jsx';
+import Profile from './components/Profile.jsx';
+import Contact from './components/Contact.jsx';
+import './styles/App.css';
+import './styles/index.css';
 
 const PrivateRoute = ({ children }) => {
     const { user } = useAuth();
-    return user ? children : <Navigate to="/login" />;
+    return user ? children : <Navigate to="/auth?mode=login" />;
 };
 
 const ProtectedRoute = ({ element: Element, ...rest }) => {
@@ -49,10 +50,10 @@ const AppContent = () => {
                     <Routes>
                         <Route path="/" element={<Events />} />
                         <Route path="/locations" element={<Locations />} />
-                        <Route path="/login" element={<AuthForm />} />
-                        <Route path="/signup" element={<AuthForm />} />
+                        <Route path="/auth" element={<AuthSlider />} />
                         <Route path="/admin" element={<ProtectedRoute element={AdminPanel} />} />
                         <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+                        <Route path="/contact" element={<Contact />} />
                         <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
                 </main>

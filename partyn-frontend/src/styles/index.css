@@ -3,10 +3,52 @@
 @tailwind utilities;
 
 
-/* Custom font class */
+
 .font-courier-new {
     font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
 }
+
+
+.font-dela-gothic-one {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-weight: normal;
+    word-spacing: 8px;
+
+}
+
+.font-dela-gothic-one2 {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-weight: 100;
+    font-size: medium;
+    opacity: 0.90;
+
+}
+
+.font-dela-gothic-one3 {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-weight: 100;
+    font-size: medium;
+    font-style: italic;
+    opacity:0.95;
+
+}
+
+.font-courier-prime {
+    font-family: 'Courier prime', Courier, monospace;
+    font-weight: bold;
+
+}
+
+.facebook-button-link:hover svg {
+    filter: brightness(1.2);
+    cursor: pointer;
+}
+
+
+
+
+
 
 /* Custom shadow class for red neon effect */
 .neon-red {

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { auth } from '../FirebaseConfig';
+import { auth } from '../../FirebaseConfig';
 import { onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, createUserWithEmailAndPassword, getIdTokenResult } from 'firebase/auth';
 
 const AuthContext = createContext();
@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
                 await user.getIdToken(true);
                 const tokenResult = await getIdTokenResult(user);
                 setIsAdmin(tokenResult.claims.admin || false);
+
             } else {
                 setIsAdmin(false);
             }
