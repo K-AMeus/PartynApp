@@ -12,9 +12,6 @@ const navigation = [
     { name: 'Contact', href: '/contact' },
 ];
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ');
-}
 
 function getColorFromString(str) {
     let hash = 0;
@@ -49,6 +46,10 @@ export default function Header() {
     const handleLogout = () => {
         logout();
         navigate('/');
+    };
+    
+    const handleNavigationClick = () => {
+        setMobileMenuOpen(false);
     };
 
     return (
@@ -102,12 +103,12 @@ export default function Header() {
                                     </div>
                                 )}
                             </button>
-                            <NavigationButton text="Log Out" onClick={handleLogout} /> {/* Use NavigationButton */}
+                            <NavigationButton text="Log Out" onClick={handleLogout} /> 
                         </>
                     ) : (
                         <div className="flex items-center">
-                            <NavigationButton text="Log In" onClick={handleLogin} /> {/* Use NavigationButton */}
-                            <NavigationButton text="Sign Up" onClick={handleSignUp} /> {/* Use NavigationButton */}
+                            <NavigationButton text="Log In" onClick={handleLogin} />
+                            <NavigationButton text="Sign Up" onClick={handleSignUp} /> 
                         </div>
                     )}
                 </div>
@@ -144,6 +145,7 @@ export default function Header() {
                                     key={item.name}
                                     to={item.href}
                                     className="block px-3 py-2 rounded-md text-lg font-medium text-sky-300 hover:text-sky-500 hover:underline transition-colors duration-200"
+                                    onClick={handleNavigationClick}
                                 >
                                     {item.name}
                                 </Link>
@@ -152,6 +154,7 @@ export default function Header() {
                                 <Link
                                     to="/admin"
                                     className="block px-3 py-2 rounded-md text-lg font-medium text-red-500 bg-red-900 hover:bg-red-800 transition-colors duration-200"
+                                    onClick={handleNavigationClick}
                                 >
                                     Admin Panel
                                 </Link>
@@ -185,6 +188,7 @@ export default function Header() {
                                         <button
                                             onClick={handleLogout}
                                             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-lg font-medium w-full transition-colors duration-200"
+                                            onClick={handleNavigationClick}
                                         >
                                             Log out
                                         </button>
