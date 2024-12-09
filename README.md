@@ -4,7 +4,7 @@ Partyn application is a dynamic platform designed to connect users with a variet
 
 This application is ideal for both event organizers looking to promote their events and for users who want to stay updated on the latest happenings in their area.
 
-**Live Demo**: [Partyn Application](https://www.funmeus.com/)
+**Live Demo**: [Partyn Application](https://www.kluub.ee/)
 
 
 ## Features 
@@ -19,10 +19,8 @@ Please note that the Partyn application is currently under active development :c
 - **Backend**: 
   - Java Spring Boot
   - Firebase Authentication
+  - Redis
   
 - **Database**:
   - PostgreSQL
   - Firebase Storage
-  
-- **Deployment**:
-  - Railway 
